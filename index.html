@@ -6,15 +6,14 @@
     <title>Dev.Astro | Cyber-Craft Specialist</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
-    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #00f2ff; /* Cyber Neon Blue */
-            --secondary: #7000ff; /* Purple Glow */
-            --bg: #020617; /* Deep Space Dark */
-            --card-bg: rgba(15, 23, 42, 0.9);
+            --primary: #00f2ff;
+            --secondary: #7000ff;
+            --bg: #020617;
+            --card-bg: rgba(15, 23, 42, 0.7);
             --text: #f8fafc;
             --text-dim: #94a3b8;
         }
@@ -26,56 +25,57 @@
             background-color: var(--bg);
             color: var(--text);
             overflow-x: hidden;
+            /* Corporate Grid Overlay */
             background-image: 
                 linear-gradient(rgba(0, 242, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 242, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
+            background-size: 60px 60px;
         }
 
-        /* LIGHTNING BOLT ANIMATION */
+        /* HARDWARE ACCELERATED LIGHTNING */
         .lightning {
             position: fixed;
-            top: -100px;
-            width: 3px;
-            height: 150px;
+            top: -200px;
+            width: 2px;
+            height: 250px;
             background: #fff;
             box-shadow: 0 0 20px var(--primary), 0 0 40px #fff;
-            filter: blur(1px);
             opacity: 0;
             z-index: 999;
             pointer-events: none;
+            will-change: transform, opacity;
         }
 
-        @keyframes strike-1 {
-            0% { transform: translateY(0) rotate(20deg); opacity: 0; }
+        @keyframes strike-logic {
+            0% { transform: translateY(0) scaleY(1) rotate(15deg); opacity: 0; }
             5% { opacity: 1; }
-            10% { opacity: 0; }
+            10% { opacity: 0.2; }
             15% { opacity: 1; }
-            100% { transform: translateY(120vh) rotate(20deg); opacity: 0; }
+            100% { transform: translateY(120vh) scaleY(2) rotate(15deg); opacity: 0; }
         }
 
-        /* NAVIGATION */
+        /* NAVIGATION (Glassmorphism) */
         nav {
             position: fixed;
             top: 0; width: 100%;
-            padding: 1.5rem 8%;
+            padding: 1.2rem 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(2, 6, 23, 0.95);
-            backdrop-filter: blur(20px);
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(0, 242, 255, 0.3);
+            border-bottom: 1px solid rgba(0, 242, 255, 0.15);
         }
 
         .logo { 
             font-family: 'Space Mono', monospace;
-            font-weight: 800; font-size: 1.5rem; color: var(--primary);
-            text-shadow: 0 0 15px var(--primary);
-            letter-spacing: -1px;
+            font-weight: 800; font-size: 1.4rem; color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
         }
 
-        /* HERO SECTION */
+        /* HERO */
         .hero {
             height: 100vh;
             display: flex;
@@ -84,145 +84,131 @@
             align-items: center;
             text-align: center;
             padding: 0 20px;
+            perspective: 1000px;
         }
 
         .hero h1 { 
-            font-size: clamp(3.5rem, 12vw, 7rem); 
+            font-size: clamp(3.5rem, 12vw, 7.5rem); 
             font-weight: 800;
-            line-height: 0.9;
-            letter-spacing: -5px;
-            margin-bottom: 1.5rem;
-            color: #fff;
-            text-shadow: 4px 4px 0px var(--secondary);
+            letter-spacing: -6px;
+            background: linear-gradient(to bottom, #fff 40%, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(0, 242, 255, 0.3));
         }
 
-        .hero p { 
-            font-family: 'Space Mono', monospace; 
-            color: var(--primary); 
-            background: rgba(0, 242, 255, 0.1);
-            padding: 5px 15px;
-            border-radius: 4px;
+        /* REVEAL ON SCROLL ANIMATION */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
-        /* PROJECT GRID */
-        .container { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem; }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* CARDS */
+        .container { max-width: 1200px; margin: 0 auto; padding: 120px 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
         
         .card {
             background: var(--card-bg);
             padding: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: 0.4s ease-out;
             position: relative;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
         }
 
         .card:hover { 
             border-color: var(--primary); 
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
-            transform: scale(1.02);
+            background: rgba(15, 23, 42, 0.95);
+            transform: translateY(-8px);
         }
 
-        .card h3 { 
-            font-family: 'Space Mono', monospace; 
-            font-size: 1.4rem;
-            color: #fff; 
-            margin-bottom: 20px; 
-            border-bottom: 2px solid var(--secondary);
-            display: inline-block;
+        .card::after {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.05), transparent);
+            transition: 0.5s;
         }
+        .card:hover::after { left: 100%; }
 
-        .card ul { list-style: none; margin-top: 15px; }
-        .card ul li { 
-            color: var(--text-dim); 
-            margin-bottom: 12px; 
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .card ul li::before { content: ">"; color: var(--primary); margin-right: 10px; font-weight: bold; }
-
-        /* BUTTONS */
         .btn {
             display: inline-block;
             margin-top: 25px;
-            padding: 12px 25px;
-            background: transparent;
+            padding: 10px 24px;
             border: 1px solid var(--primary);
             color: var(--primary);
             text-decoration: none;
             font-family: 'Space Mono', monospace;
-            font-weight: 700;
-            text-transform: uppercase;
             font-size: 0.8rem;
             transition: 0.3s;
         }
-
         .btn:hover { background: var(--primary); color: var(--bg); box-shadow: 0 0 20px var(--primary); }
 
-        footer { text-align: center; padding: 60px; color: var(--text-dim); font-family: 'Space Mono'; font-size: 0.8rem; letter-spacing: 1px; }
-
-        @media (max-width: 768px) { .hero h1 { font-size: 4rem; } }
+        footer { text-align: center; padding: 80px 20px; color: var(--text-dim); font-family: 'Space Mono'; font-size: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05); }
     </style>
 </head>
 <body>
 
-    <div class="lightning" style="left: 15%; animation: strike-1 3s infinite;"></div>
-    <div class="lightning" style="left: 45%; animation: strike-1 5s infinite 2s;"></div>
-    <div class="lightning" style="left: 85%; animation: strike-1 4s infinite 1s;"></div>
+    <div class="lightning" style="left: 20%; animation: strike-logic 4s infinite 1s;"></div>
+    <div class="lightning" style="left: 60%; animation: strike-logic 6s infinite 3s;"></div>
 
     <nav>
         <div class="logo">DEV.ASTRO</div>
-        <div style="font-family: 'Space Mono'; font-size: 0.7rem; color: var(--secondary);">[ SYSTEM_ACTIVE ]</div>
+        <div style="font-family: 'Space Mono'; font-size: 0.7rem; color: var(--secondary);">[ SYSTEM_SYNCED ]</div>
     </nav>
 
     <section class="hero">
-        <h1>DEV.ASTRO</h1>
-        <p>>_ CODING // SCIENCE // PAPERCRAFT</p>
+        <h1 class="reveal">DEV.ASTRO</h1>
+        <p class="reveal" style="font-family: 'Space Mono'; color: var(--primary); letter-spacing: 2px;">>_ MASTER OF PHYSICAL & DIGITAL BUILDS</p>
     </section>
 
     <div class="container">
         <div class="grid">
-            
-            <div class="card">
-                <h3>MODULE_01: HSI-LABS</h3>
-                <p style="color: var(--text-dim);">Full-scale digital research hub for data innovation and experimental lab deployment.</p>
-                <ul>
-                    <li>Host: Vercel Network</li>
-                    <li>Status: Operational</li>
-                    <li>Architecture: Responsive Cyber-UX</li>
-                </ul>
-                <a href="https://hsi-labs.vercel.app" target="_blank" class="btn">Launch Interface</a>
+            <div class="card reveal">
+                <h3 style="font-family: 'Space Mono'; margin-bottom: 1rem;">MODULE_01: HSI-LABS</h3>
+                <p style="color: var(--text-dim); font-size: 0.9rem;">High-end digital research hub deployed via Vercel for innovative data management.</p>
+                <a href="https://hsi-labs.vercel.app" target="_blank" class="btn">INITIALIZE →</a>
             </div>
 
-            <div class="card">
-                <h3>MODULE_02: PAPERCRAFT</h3>
-                <p style="color: var(--text-dim);">Engineering precision geometric forms using high-density cellulose materials.</p>
-                <ul>
-                    <li>Model: Low-Poly Cyber-Mask v1.0</li>
-                    <li>Model: Geodesic Origami Sphere</li>
-                    <li>Model: Kinetic Folding Array</li>
-                </ul>
-                <div class="btn">Physical Build</div>
+            <div class="card reveal">
+                <h3 style="font-family: 'Space Mono'; margin-bottom: 1rem;">MODULE_02: PAPERCRAFT</h3>
+                <p style="color: var(--text-dim); font-size: 0.9rem;">Precision engineering of geometric paper forms, from Cyber-Masks to kinetic folding arrays.</p>
+                <div class="btn">VIEW SPECS</div>
             </div>
 
-            <div class="card">
-                <h3>MODULE_03: CARDBOARD</h3>
-                <p style="color: var(--text-dim);">Heavy-duty structural prototypes and mechanical corrugated builds.</p>
-                <ul>
-                    <li>Prototype: Hydraulic Arm Linkage</li>
-                    <li>Prototype: Wearable Plating System</li>
-                    <li>Prototype: Brutalist Scale Habitat</li>
-                </ul>
-                <div class="btn">Hard-Surface</div>
+            <div class="card reveal">
+                <h3 style="font-family: 'Space Mono'; margin-bottom: 1rem;">MODULE_03: CARDBOARD</h3>
+                <p style="color: var(--text-dim); font-size: 0.9rem;">Structural corrugated builds including hydraulic mechanical arms and wearable tech armor.</p>
+                <div class="btn">VIEW SPECS</div>
             </div>
-
         </div>
     </div>
 
     <footer>
-        <p>NO DATA LEAK DETECTED. &copy; 2026 DEV.ASTRO // AUTHORIZED ACCESS ONLY.</p>
+        <p>&copy; 2026 DEV.ASTRO // THE SMOOTHEST BUILD ON GITHUB.</p>
     </footer>
+
+    <script>
+        // THE "SMOOTHNESS" ENGINE
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
 
 </body>
 </html>

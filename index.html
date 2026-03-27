@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Premium Showcase</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #f43f5e;
+            --bg: #030712;
+            --card: #111827;
+            --text: #f3f4f6;
+            --text-muted: #9ca3af;
+            --glow: rgba(99, 102, 241, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 1.2rem 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(3, 7, 18, 0.9);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -1px; background: linear-gradient(to right, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        nav .links a { color: var(--text); text-decoration: none; margin-left: 2rem; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
+        nav .links a:hover { color: var(--primary); }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #030712 100%);
+        }
+
+        .hero h1 { font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -2px; }
+        .hero p { font-size: clamp(1rem, 3vw, 1.4rem); color: var(--text-muted); max-width: 650px; margin-bottom: 2.5rem; }
+
+        /* Buttons */
+        .btn {
+            padding: 14px 32px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px var(--glow);
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px var(--glow); opacity: 0.9; }
+
+        /* Projects Section */
+        .container { max-width: 1200px; margin: 0 auto; padding: 120px 20px; }
+        .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 4rem; text-align: center; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+        
+        .card {
+            background: var(--card);
+            padding: 2.5rem;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover { 
+            transform: translateY(-12px); 
+            border-color: var(--primary);
+            background: rgba(17, 24, 39, 0.8);
+        }
+
+        .card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: #fff; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Contact Section */
+        .contact-box {
+            text-align: center;
+            background: linear-gradient(rgba(99, 102, 241, 0.1), transparent);
+            border-radius: 30px;
+            padding: 80px 40px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        footer { text-align: center; padding: 60px; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-muted); font-size: 0.85rem; }
+
+        /* Responsive Fixes */
+        @media (max-width: 768px) {
+            nav .links { display: none; }
+            .hero h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">CREATIVE.PRO</div>
+        <div class="links">
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Building the<br>Future of Web.</h1>
+        <p>I design and develop high-performance digital products that help brands stand out in the modern age.</p>
+        <div style="display: flex; gap: 15px;">
+            <a href="#work" class="btn">View My Work</a>
+        </div>
+    </section>
+
+    <div class="container" id="work">
+        <h2 class="section-title">Selected Projects</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>01. Nexus AI</h3>
+                <p>A sophisticated machine learning interface designed for clarity and rapid data analysis.</p>
+            </div>
+            <div class="card">
+                <h3>02. Velocity OS</h3>
+                <p>Complete design system and frontend architecture for a high-speed trading platform.</p>
+            </div>
+            <div class="card">
+                <h3>03. Aura Commerce</h3>
+                <p>An immersive e-commerce experience focusing on minimalist aesthetics and conversion.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="contact">
+        <div class="contact-box">
+            <h2 style="font-size: 3rem; margin-bottom: 1rem;">Let's talk.</h2>
+            <p style="margin-bottom: 2.5rem; font-size: 1.2rem; color: var(--text-muted);">Have a project in mind? I'm currently available for freelance work.</p>
+            <a href="mailto:hello@yourname.com" class="btn">Email Me Directly</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Your Name Portfolio. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

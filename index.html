@@ -94,6 +94,7 @@
     </nav>
 
     <section class="hero">
+        <canvas id="starfield"></canvas>
         <h1 class="reveal">Shlok Kore</h1>
         <p class="reveal" style="font-family: 'Space Mono'; font-size: 0.8rem; color: var(--text-dim); letter-spacing: 1px;">>_ I’m just a kid who loves bringing big ideas to life, from building cool websites to making awesome stuff out of cardboard.</p>
     </section>
@@ -144,7 +145,56 @@
         <div class="sys-btn" onclick="alert('Contact: astro27.smart@gmail.com')">ENCRYPTED_COMMS</div>
     </div>
 
-    <script>
+<script>
+        // ---------- Hero Stars ----------
+const starCanvas = document.getElementById('starfield');
+const sctx = starCanvas.getContext('2d');
+let stars = [];
+const numStars = 300;
+
+function resizeStarCanvas() {
+  starCanvas.width = window.innerWidth;
+  starCanvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeStarCanvas);
+resizeStarCanvas();
+
+for (let i = 0; i < numStars; i++) {
+  stars.push({
+    x: Math.random() * starCanvas.width,
+    y: Math.random() * starCanvas.height,
+    size: Math.random() * 2,
+    speed: Math.random() * 0.5 + 0.1,
+    alpha: Math.random()
+  });
+}
+
+function drawStars() {
+  sctx.clearRect(0,0,starCanvas.width, starCanvas.height);
+  sctx.fillStyle = '#0b0c10';
+  sctx.fillRect(0,0, starCanvas.width, starCanvas.height);
+  
+  stars.forEach(star => {
+    star.alpha += (Math.random()-0.5)*0.05;
+    if(star.alpha < 0.2) star.alpha = 0.2;
+    if(star.alpha > 1) star.alpha = 1;
+
+    sctx.fillStyle = `rgba(255,255,255,${star.alpha})`;
+    sctx.beginPath();
+    sctx.arc(star.x, star.y, star.size,0,Math.PI*2);
+    sctx.fill();
+
+    star.y += star.speed;
+    if(star.y > starCanvas.height) star.y = 0;
+  });
+}
+
+function animate(){
+  drawStars();
+  requestAnimationFrame(animate);
+}
+animate();
+        
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.15 });

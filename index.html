@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dev.Astro | Cyber-Craft Specialist</title>
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23020617'/><text y='50%' x='50%' dy='.35em' text-anchor='middle' font-family='monospace' font-weight='900' font-size='60' fill='%2300f2ff' style='filter:drop-shadow(0 0 5px %2300f2ff)'>A</text></svg>">
+    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
@@ -46,7 +47,6 @@
             100% { transform: scale(1.2) translate(5%, 5%); }
         }
 
-        /* NAVIGATION */
         nav {
             position: fixed;
             top: 0; width: 100%;
@@ -54,21 +54,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(2, 6, 23, 0.4);
+            background: rgba(2, 6, 23, 0.6);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(0, 242, 255, 0.1);
         }
 
         .logo { 
             font-family: 'Space Mono', monospace;
             font-weight: 800; font-size: 1.2rem; 
             letter-spacing: 2px;
-            color: #fff;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
         }
 
-        /* HERO SECTION */
         .hero {
             height: 100vh;
             display: flex;
@@ -76,99 +75,128 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            position: relative;
         }
 
         .hero h1 { 
-            font-size: clamp(4rem, 15vw, 9rem); 
+            font-size: clamp(3.5rem, 12vw, 8rem); 
             font-weight: 800;
             letter-spacing: -0.05em;
-            line-height: 0.9;
-            background: linear-gradient(180deg, #fff 30%, rgba(255,255,255,0.5));
+            background: linear-gradient(180deg, #fff 40%, var(--primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
         }
 
-        /* THE CARDS */
+        /* SKILLS SECTION */
+        .skills-section {
+            padding: 100px 8%;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 50px;
+        }
+
+        .skill-node {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1.5rem;
+            border-left: 2px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-node::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(112, 0, 255, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .skill-node:hover::before { transform: translateX(100%); }
+
+        .skill-label {
+            font-family: 'Space Mono';
+            font-size: 0.7rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .skill-bar-bg {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.1, 1, 0.3, 1);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* REVEAL ACTIVE FOR SKILLS */
+        .active .skill-bar-fill.html { width: 95%; }
+        .active .skill-bar-fill.react { width: 88%; }
+        .active .skill-bar-fill.paper { width: 92%; }
+        .active .skill-bar-fill.hydro { width: 80%; }
+
+        /* MODULE CARDS */
         .container { max-width: 1300px; margin: 0 auto; padding: 100px 40px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
         
         .card {
             background: var(--card-bg);
-            padding: 3.5rem 2.5rem;
-            border-radius: 2px;
+            padding: 3rem 2rem;
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            position: relative;
-            cursor: pointer;
         }
 
         .card:hover { 
-            background: rgba(15, 23, 42, 0.6);
             border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-glow);
-            transform: translateY(-10px) scale(1.02);
+            background: rgba(15, 23, 42, 0.6);
+            transform: translateY(-10px);
         }
 
-        .card h3 {
-            font-family: 'Space Mono';
-            font-size: 0.8rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            letter-spacing: 3px;
-        }
-
-        .card p {
-            color: var(--text-dim);
-            font-size: 1rem;
-            font-weight: 300;
-        }
-
-        /* BUTTONS */
         .btn {
             display: inline-block;
             margin-top: 30px;
             padding: 12px 28px;
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
+            border: 1px solid var(--primary);
+            color: var(--primary);
             text-decoration: none;
             font-family: 'Space Mono', monospace;
             font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
             transition: 0.4s;
         }
 
         .btn:hover {
-            background: #fff;
+            background: var(--primary);
             color: var(--bg);
-            border-color: #fff;
+            box-shadow: 0 0 20px var(--primary);
         }
 
-        /* FOOTER */
-        footer { 
-            padding: 100px 20px; 
-            text-align: center;
-            opacity: 0.5;
-            font-family: 'Space Mono';
-            font-size: 0.7rem;
-            letter-spacing: 1px;
-        }
-
-        /* REVEAL LOGIC */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: 1s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
+        footer { 
+            padding: 80px 20px; 
+            text-align: center;
+            font-family: 'Space Mono';
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
     </style>
 </head>
 <body>
@@ -176,60 +204,78 @@
     <div class="mesh-gradient"></div>
 
     <nav>
-        <div class="logo">DEV.ASTRO</div>
-        <div style="font-family: 'Space Mono'; font-size: 0.65rem; letter-spacing: 2px; color: var(--primary);">EST. 2026 // NODE_ACTIVE</div>
+        <div class="logo">ASTRO_SYS</div>
+        <div style="font-family: 'Space Mono'; font-size: 0.65rem; color: var(--secondary);">[ CONNECTION: SECURE ]</div>
     </nav>
 
     <section class="hero">
-        <h1 class="reveal">CRAFTING<br>CHAOS.</h1>
-        <p class="reveal" style="font-family: 'Space Mono'; font-size: 0.8rem; color: var(--text-dim); letter-spacing: 4px;">[ ARCHITECTING BEYOND THE SCREEN ]</p>
+        <h1 class="reveal">DEV.ASTRO</h1>
+        <p class="reveal" style="font-family: 'Space Mono'; font-size: 0.8rem; color: var(--text-dim); letter-spacing: 5px;">> PHYSICAL_LOGIC // DIGITAL_CRAFT</p>
+    </section>
+
+    <section class="skills-section reveal">
+        <h2 style="font-family: 'Space Mono'; font-size: 1.5rem; letter-spacing: -1px;">CORE_COMPETENCIES</h2>
+        <div class="skills-grid">
+            <div class="skill-node">
+                <div class="skill-label"><span>FULLSTACK_DEV</span><span>95%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill html"></div></div>
+            </div>
+            <div class="skill-node">
+                <div class="skill-label"><span>UI/UX_ARCHITECTURE</span><span>88%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill react"></div></div>
+            </div>
+            <div class="skill-node">
+                <div class="skill-label"><span>GEOMETRIC_PAPERCRAFT</span><span>92%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill paper"></div></div>
+            </div>
+            <div class="skill-node">
+                <div class="skill-label"><span>KINETIC_MECHANICS</span><span>80%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill hydro"></div></div>
+            </div>
+        </div>
     </section>
 
     <div class="container">
         <div class="grid">
             <div class="card reveal">
-                <h3>MODULE_01 // DIGITAL</h3>
-                <p>Advanced ecosystem development. Specializing in high-frequency web architecture and seamless data visualization interfaces.</p>
-                <a href="https://hsi-labs.vercel.app" target="_blank" class="btn">Initialize HSI-Labs</a>
+                <h3 style="font-family: 'Space Mono'; font-size: 0.8rem; color: var(--primary); margin-bottom: 1rem;">MODULE_01</h3>
+                <p style="color: var(--text-dim);">High-end digital research hub deployed for innovative data management and UI experiments.</p>
+                <a href="https://hsi-labs.vercel.app" target="_blank" class="btn">ACCESS HSI-LABS</a>
             </div>
 
             <div class="card reveal">
-                <h3>MODULE_02 // PHYSICAL</h3>
-                <p>From complex paper geometry to hydraulic cardboard mechanics. Bridging the gap between digital theory and physical form.</p>
-                <div class="btn">View Blueprints</div>
+                <h3 style="font-family: 'Space Mono'; font-size: 0.8rem; color: var(--primary); margin-bottom: 1rem;">MODULE_02</h3>
+                <p style="color: var(--text-dim);">Precision engineering of geometric paper forms and complex kinetic folding arrays.</p>
+                <div class="btn">SPECS.EXE</div>
             </div>
 
             <div class="card reveal">
-                <h3>MODULE_03 // KINETIC</h3>
-                <p>Wearable tech-armor and structural builds designed for high-impact visual performance and mechanical durability.</p>
-                <div class="btn">System Specs</div>
+                <h3 style="font-family: 'Space Mono'; font-size: 0.8rem; color: var(--primary); margin-bottom: 1rem;">MODULE_03</h3>
+                <p style="color: var(--text-dim);">Structural corrugated builds including hydraulic mechanical arms and wearable armor.</p>
+                <div class="btn">SPECS.EXE</div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 DEV.ASTRO // THE SMOOTHEST BUILD ON GITHUB.</p>
+        <p>&copy; 2026 DEV.ASTRO // PROTOCOL_COMPLETE</p>
     </footer>
 
     <script>
-        const observerOptions = { threshold: 0.15 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-        // Subtle Mouse parallax for that "flawless" feel
+        // Subtle mouse tracking for the background
         document.addEventListener('mousemove', (e) => {
-            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
-            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
-            document.querySelector('.mesh-gradient').style.transform = `translate(${moveX}px, ${moveY}px) scale(1.1)`;
+            const x = (e.clientX / window.innerWidth) * 20;
+            const y = (e.clientY / window.innerHeight) * 20;
+            document.querySelector('.mesh-gradient').style.transform = `translate(${x}px, ${y}px) scale(1.1)`;
         });
     </script>
-
 </body>
 </html>
